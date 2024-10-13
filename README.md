@@ -1,66 +1,33 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+### Proyecto: Sistema de Gestión de Reservas para un Restaurante
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Descripción del proyecto:**
 
-## About Laravel
+Construir un sistema que permita gestionar **reservas de mesas** en un restaurante. Este sistema debe manejar la creación de reservas, la asignación de mesas, la cancelación de reservas, y la visualización de las reservas existentes. Se implementará este sistema aplicando **arquitectura hexagonal** y **DDD** para separar claramente las responsabilidades y asegurarte de que la lógica de negocio no dependa de los detalles técnicos como la base de datos o el framework.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Paso a paso del proyecto
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### 1. **Define el Dominio (Entidades Principales y Reglas de Negocio)**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Motivo:** El dominio contiene las **reglas de negocio** que definen cómo el sistema debe comportarse. En DDD, el dominio es el núcleo de la aplicación, ya que es donde reside la lógica importante que gobierna cómo se deben manejar las reservas. Esto nos permite entender bien el negocio y aislar la lógica de otras capas (UI, infraestructura).
 
-## Learning Laravel
+#### 2. **Diseña los Casos de Uso (Aplicación)**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Motivo:** En la capa de **aplicación**, es donde se gestionan los **casos de uso**. Aquí decides cómo el sistema debe responder a las acciones del usuario, como reservar una mesa o cancelar una reserva. Esta capa no debe contener lógica de negocio compleja, sino coordinar las acciones entre las diferentes capas.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### 3. **Define Interfaces (Puertos de Entrada y Salida)**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Motivo:** Los **puertos** son las interfaces que definen cómo las capas de tu aplicación interactúan. El **puerto de entrada** es cómo los casos de uso son iniciados (generalmente por controladores o eventos), mientras que los **puertos de salida** son cómo la aplicación interactúa con las infraestructuras (base de datos, APIs externas, etc.).
 
-## Laravel Sponsors
+#### 4. **Implementa la Capa de Infraestructura**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+**Motivo:** La **infraestructura** contiene las implementaciones concretas de los puertos de salida, como el acceso a la base de datos o APIs externas. Esta capa es donde se conecta tu sistema con tecnologías externas. En arquitectura hexagonal, la infraestructura no debe contener lógica de negocio, solo interacciones técnicas.
 
-### Premium Partners
+#### 5. **Conecta los Adaptadores de Entrada (Controladores)**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+**Motivo:** Los **adaptadores de entrada** son la interfaz con el mundo externo (como el usuario o APIs externas). Aquí es donde recibes las solicitudes y las conviertes en **comandos** o **consultas** que los casos de uso ejecutarán. En Laravel, esta capa se representa con los controladores.
 
-## Contributing
+#### 6. **Pruebas Unitarias y de Integración**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Motivo:** Las pruebas son esenciales para validar que la lógica de negocio se comporta como esperas. Debes probar los servicios del dominio de forma independiente de la infraestructura. Las pruebas de integración validan que todos los componentes interactúan correctamente.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
