@@ -23,22 +23,47 @@ class Booking
         $this->status = BookingStatus::PENDING;
     }
 
-    // public function confirmBooking()
-    // {
-    //     if ($this->status !== BookingStatus::CANCELED) {
-    //         $this->status = BookingStatus::CONFIRMED;
-    //     } else {
-    //         throw new \Exception("No se puede confirmar una reserva cancelada.");
-    //     }
-    // }
+    public function confirmBooking()
+    {
+        if ($this->status !== BookingStatus::CANCELED) {
+            $this->status = BookingStatus::CONFIRMED;
+        } else {
+            throw new \Exception("No se puede confirmar una reserva cancelada.");
+        }
+    }
 
-    // public function cancelBooking()
-    // {
-    //     if ($this->status !== BookingStatus::CONFIRMED) {
-    //         $this->status = BookingStatus::CANCELED;
-    //     } else {
-    //         throw new \Exception("No se puede cancelar una reserva ya confirmada.");
-    //     }
-    // }
+    public function cancelBooking()
+    {
+        if ($this->status !== BookingStatus::CONFIRMED) {
+            $this->status = BookingStatus::CANCELED;
+        } else {
+            throw new \Exception("No se puede cancelar una reserva ya confirmada.");
+        }
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getStatus(): BookingStatus
+    {
+        return $this->status;
+    }
+
+    public function getClientId(): string
+    {
+        return $this->clientId;
+    }
+
+    public function getTableId(): string
+    {
+        return $this->tableId;
+    }
+
+    public function getBookingDate(): string
+    {
+        return $this->bookingDate;
+    }
 
 }
